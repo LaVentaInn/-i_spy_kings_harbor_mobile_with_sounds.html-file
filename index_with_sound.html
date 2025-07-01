@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>I Spy from the Boat</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #e0f7fa; }
+        h1 { text-align: center; color: #00796b; }
+        .clue { margin: 10px 0; padding: 10px; background: #ffffff; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        button { margin-top: 5px; padding: 8px 12px; background: #00796b; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        button.clicked { background: #9e9e9e; }
+        #score { font-size: 1.2em; margin-top: 20px; text-align: center; }
+    </style>
+</head>
+<body>
+    <h1>I Spy from the Boat</h1>
+    <div id="game">
+        <div class="clue" data-points="1">I spy something red and floating. <br><button>I found it!</button></div>
+        <div class="clue" data-points="1">I spy a paddle moving through the water. <br><button>I found it!</button></div>
+        <div class="clue" data-points="2">I spy a pelican perched on a post. <br><button>I found it!</button></div>
+        <div class="clue" data-points="2">I spy a sailboat with a blue stripe. <br><button>I found it!</button></div>
+        <div class="clue" data-points="3">I spy a kayak with two people paddling. <br><button>I found it!</button></div>
+        <div class="clue" data-points="3">I spy a sea lion sunbathing on a buoy. <br><button>I found it!</button></div>
+        <div class="clue" data-points="4">I spy a lighthouse in the distance. <br><button>I found it!</button></div>
+        <div class="clue" data-points="4">I spy a surfer catching a wave. <br><button>I found it!</button></div>
+        <div class="clue" data-points="5">I spy a dolphin jumping out of the water. <br><button>I found it!</button></div>
+        <div class="clue" data-points="5">I spy a parasail high in the sky. <br><button>I found it!</button></div>
+    </div>
+    <div id="score">Score: 0</div>
+
+    <audio id="foundSound" src="https://www.soundjay.com/button/sounds/button-3.mp3" preload="auto"></audio>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let score = 0;
+            const scoreDisplay = document.getElementById("score");
+            const buttons = document.querySelectorAll("button");
+            const sound = document.getElementById("foundSound");
+
+            buttons.forEach(button => {
+                button.addEventListener("click", () => {
+                    if (!button.classList.contains("clicked")) {
+                        const clue = button.parentElement;
+                        const points = parseInt(clue.getAttribute("data-points"));
+                        score += points;
+                        scoreDisplay.textContent = "Score: " + score;
+                        button.classList.add("clicked");
+                        sound.currentTime = 0;
+                        sound.play();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
